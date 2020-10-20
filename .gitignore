@@ -133,7 +133,6 @@ dmypy.json
 *.sqlite
 
 creds.py
-
-.vscode
-
 settings.py
+
+
