@@ -19,9 +19,10 @@ class Book(models.Model):
         verbose_name='Автор книги'
     )
     
-    book_serie = models.ManyToManyField(
+    book_serie = models.ForeignKey(
         Serie,
-        verbose_name='Серия книги'
+        verbose_name='Серия книги',
+        on_delete=models.PROTECT
     )
     
     book_genre = models.ManyToManyField(
@@ -29,9 +30,10 @@ class Book(models.Model):
         verbose_name='Жанры'
     )
     
-    book_publisher = models.ManyToManyField(
+    book_publisher = models.ForeignKey(
         Publisher,
-        verbose_name='Издательство'
+        verbose_name='Издательство',
+        on_delete=models.PROTECT
     )
 
     def __str__(self):
