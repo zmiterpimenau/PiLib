@@ -4,9 +4,7 @@ from django.db import models
 class Author(models.Model):
     author = models.CharField(
         'Имя автора',
-        max_length=50,
-        blank=False,
-        null=False
+        max_length=50
     )
 
     def __str__(self):
@@ -15,9 +13,7 @@ class Author(models.Model):
 class Serie(models.Model):
     series = models.CharField(
         'Номер серии',
-        max_length=50,
-        blank=False,
-        null=False
+        max_length=50
     )
 
     def __str__(self):
@@ -26,9 +22,7 @@ class Serie(models.Model):
 class Genre(models.Model):
     genres = models.CharField(
         'Жанр книги',
-        max_length=50,
-        blank=False,
-        null=False
+        max_length=50
     )
 
     def __str__(self):
@@ -37,9 +31,7 @@ class Genre(models.Model):
 class Publisher(models.Model):
     publisher = models.CharField(
         'Издательство',
-        max_length=50,
-        blank=False,
-        null=False
+        max_length=50
     )
 
     def __str__(self):
