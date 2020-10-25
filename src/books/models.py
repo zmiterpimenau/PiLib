@@ -89,12 +89,12 @@ class Book(models.Model):
 
     RATING = []
     for i in range(11):
-        var = (str(i), i)
+        var = (i, i)
         RATING.append(var)
 
     book_rating = models.IntegerField(
         'Рейтинг книги',
-        default='0',
+        default=0,
         choices=RATING
     )
 
@@ -110,31 +110,33 @@ class Book(models.Model):
         auto_now_add=False
     )
     
-    book_author = models.ManyToManyField(
+    book_author = models.ForeignKey(
         Author,
         verbose_name='Автор книги',
-        related_name='books'
+        on_delete=models.PROTECT,
+        related_name='book'
     )
     
     book_serie = models.ForeignKey(
         Serie,
         verbose_name='Серия книги',
         on_delete=models.PROTECT,
-        related_name='books'
+        related_name='book'
     )
     
-    book_genre = models.ManyToManyField(
+    book_genre = models.ForeignKey(
         Genre,
         verbose_name='Жанры',
-        related_name='books'
+        on_delete=models.PROTECT,
+        related_name='book'
     )
     
     book_publisher = models.ForeignKey(
         Publisher,
         verbose_name='Издательство',
         on_delete=models.PROTECT,
-        related_name='books'
+        related_name='book'
     )
 
     def __str__(self):
-        return f'{self.book_name}'
+        return f'{self.book_name} {self.book_adding_date}'
