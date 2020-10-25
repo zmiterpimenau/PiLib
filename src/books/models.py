@@ -113,28 +113,28 @@ class Book(models.Model):
     book_author = models.ManyToManyField(
         Author,
         verbose_name='Автор книги',
-        related_name='Книга'
+        related_name='books'
     )
     
     book_serie = models.ForeignKey(
         Serie,
         verbose_name='Серия книги',
         on_delete=models.PROTECT,
-        related_name='Книга'
+        related_name='books'
     )
     
     book_genre = models.ManyToManyField(
         Genre,
         verbose_name='Жанры',
-        related_name='Книга'
+        related_name='books'
     )
     
     book_publisher = models.ForeignKey(
         Publisher,
         verbose_name='Издательство',
         on_delete=models.PROTECT,
-        related_name='Книга'
+        related_name='books'
     )
 
     def __str__(self):
-        return f'{self.book_name} {self.book_adding_date}'
+        return f'{self.book_name}'
