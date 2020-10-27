@@ -8,7 +8,7 @@ class Author(models.Model):
     )
 
     def __str__(self):
-        return self.author
+        return f'{self.author}'
 
 class Serie(models.Model):
     series = models.CharField(

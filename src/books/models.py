@@ -110,10 +110,9 @@ class Book(models.Model):
         auto_now_add=False
     )
     
-    book_author = models.ForeignKey(
+    book_author = models.ManyToManyField(
         Author,
         verbose_name='Автор книги',
-        on_delete=models.PROTECT,
         related_name='book'
     )
     
@@ -121,22 +120,27 @@ class Book(models.Model):
         Serie,
         verbose_name='Серия книги',
         on_delete=models.PROTECT,
-        related_name='book'
+        related_name='book',
+        null=True,
+        blank=True
     )
     
-    book_genre = models.ForeignKey(
+    book_genre = models.ManyToManyField(
         Genre,
         verbose_name='Жанры',
-        on_delete=models.PROTECT,
-        related_name='book'
+        related_name='book',
+        null=True,
+        blank=True
     )
     
     book_publisher = models.ForeignKey(
         Publisher,
         verbose_name='Издательство',
         on_delete=models.PROTECT,
-        related_name='book'
+        related_name='book',
+        null=True,
+        blank=True
     )
 
     def __str__(self):
-        return f'{self.book_name} {self.book_adding_date}'
+        return f'{self.book_name}'
