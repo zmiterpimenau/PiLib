@@ -18,8 +18,17 @@ from django.urls import path
 
 from hello_world.views import hello_world
 
+from reference_book.views import show_author_list, show_author_by_pk, show_serie_list, show_serie_by_pk, show_genre_by_pk, show_genre_list, show_publisher_by_pk, show_publisher_list, show_ref_books
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('hello_world/', hello_world),
+    path('author/<int:author_id>/', show_author_by_pk),
+    path('author/', show_author_list),
+    path('serie/<int:serie_id>/', show_serie_by_pk),
+    path('serie/', show_serie_list),
+    path('genre/<int:genre_id>/', show_genre_by_pk),
+    path('genre/', show_genre_list),
+    path('publisher/<int:publisher_id>/', show_publisher_by_pk),
+    path('publisher/', show_publisher_list),
+    path('', show_ref_books),
 ]

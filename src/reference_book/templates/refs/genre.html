@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Название жанра: {{genre_key.genres}}</h1>
+    <h2>Количество книг данного жанра:{{book_key|length}}</h2>
+    <strong>Список книг данного жанра:</strong><br>
+    {% for book in book_key%}
+        <li>{{ book }}</li>
+    {% endfor %}
+</body>
+</html>

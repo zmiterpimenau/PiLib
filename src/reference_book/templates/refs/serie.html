@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Название серии: {{serie_key.series}}</h1>
+    <h2>Количество книг данной серии:{{book_key|length}}</h2>
+    <strong>Список книг данной серии:</strong><br>
+    {% for book in book_key%}
+        <li>{{ book }}</li>
+    {% endfor %}
+</body>
+</html>
