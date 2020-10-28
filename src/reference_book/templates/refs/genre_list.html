@@ -6,9 +6,9 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Список книг издательства</h1>
+    <h1>Список жанров</h1>
     {% for genre in genres_key%}
-    <a href="/genre/{{ genre.pk }}">{{ genre.genre }}</a><br>
+    <a href="/genre/{{ genre.pk }}">{{ genre.genres }}</a><br>
     {% endfor %}
 </body>
 </html>
