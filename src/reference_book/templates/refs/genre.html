@@ -8,9 +8,11 @@
 <body>
     <h1>Название жанра: {{genre_key.genres}}</h1>
     <h2>Количество книг данного жанра:{{book_key|length}}</h2>
+    <h3><a href="/genre/update/{{ genre_key.pk }}">{{ 'Изменить жанр' }}</a></h3>
+    <h4><a href="/genre/delete/{{ genre_key.pk }}">{{ 'Удалить данный жанр' }}</a></h4>
     <strong>Список книг данного жанра:</strong><br>
     {% for book in book_key%}
         <li>{{ book }}</li>
-    {% endfor %}
+    {% endfor %}<br>
 </body>
 </html>

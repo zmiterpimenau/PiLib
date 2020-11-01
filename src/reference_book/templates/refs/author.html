@@ -8,6 +8,8 @@
 <body>
     <h1>Карточка автора: {{author_key.author}}</h1>
     <h2>Количество книг:{{book_key|length}}</h2>
+    <h3><a href="/author/update/{{ author_key.pk }}">{{ 'Изменить данные автора' }}</a></h3>
+    <h4><a href="/author/delete/{{ author_key.pk }}">{{ 'Удалить данного автора' }}</a></h4>
     <strong>Список книг данного автора:</strong><br>
     {% for book in book_key%}
         <li>{{ book }}</li>

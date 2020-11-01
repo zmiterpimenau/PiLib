@@ -7,6 +7,7 @@
 </head>
 <body>
     <h1>Список жанров</h1>
+    <h2><a href="/genre/create">{{ 'Создать новый жанр' }}</a></h2>
     {% for genre in genres_key%}
     <a href="/genre/{{ genre.pk }}">{{ genre.genres }}</a><br>
     {% endfor %}

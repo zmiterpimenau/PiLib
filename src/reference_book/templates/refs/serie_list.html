@@ -7,6 +7,7 @@
 </head>
 <body>
     <h1>Список серий изданий</h1>
+    <h2><a href="/serie/create">{{ 'Создать новую серию' }}</a></h2>
     {% for serie in series_key%}
     <a href="/serie/{{ serie.pk }}">{{ serie.series }}</a><br>
     {% endfor %}

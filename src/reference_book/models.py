@@ -12,7 +12,7 @@ class Author(models.Model):
 
 class Serie(models.Model):
     series = models.CharField(
-        'Номер серии',
+        'Название серии',
         max_length=50
     )
 
