@@ -48,14 +48,11 @@ class ShowBookByPKView(DetailView):
         return context
 
 class ShowBookListView(ListView):
-    template_name = 'refs/refbook_list.html'
+    template_name = 'refs/book_list.html'
     model = Book
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["list_name"] = "Список книг"
-        context["link"] = "/book/create"
-        context["obj_name"] = "book"
-        context["header"] = "Создать новую книгу"
+        context["header"] = "Список книг"
         return context
 
 
