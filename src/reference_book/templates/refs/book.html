@@ -10,13 +10,13 @@
     <h2><a href="/book/update/{{ book_obj.pk }}">{{ 'Изменить карточку книги' }}</a></h2>
     <h3><a href="/book/delete/{{ book_obj.pk }}">{{ 'Удалить книгу' }}</a></h3>
     Автор - {% for author in author_obj%}
-        <a href="/author/{{ author_obj.pk }}">{{author}}</a>
+        <a href="/author/{{ author.pk }}">{{author}}</a>
         {% endfor %}<br>
     Жанр - {% for genre in genre_obj%}
-        <a href="/genre/{{ genre_obj.pk }}">{{genre}}</a>
+        <a href="/genre/{{ genre.pk }}">{{genre}}</a>
         {% endfor %}<br>
     Серия - <a href="/serie/{{ book_obj.book_serie.pk }}">{{book_obj.book_serie}}</a><br>
-    Издатель - <a href="/book/{{ book_obj.book_publisher.pk }}">"{{book_obj.book_publisher}}"</a><br>
+    Издатель - <a href="/publisher/{{ book_obj.book_publisher.pk }}">"{{book_obj.book_publisher}}"</a><br>
     Цена книги: {{book_obj.book_price}} BYN<br>
     Год выпуска книги: {{book_obj.book_year}}<br>
     Количество страниц: {{book_obj.book_pages}}<br>
