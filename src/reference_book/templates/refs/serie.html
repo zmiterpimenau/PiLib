@@ -6,13 +6,13 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Название серии: {{serie_key.series}}</h1>
-    <h2>Количество книг данной серии:{{book_key|length}}</h2>
-    <h3><a href="/serie/update/{{ serie_key.pk }}">{{ 'Изменить серию' }}</a></h3>
-    <h4><a href="/serie/delete/{{ serie_key.pk }}">{{ 'Удалить данную серию' }}</a></h4>
+    <h1>Название серии: {{ obj }}</h1>
+    <h2>Количество книг данной серии:{{book_list|length}}</h2>
+    <h3><a href="/serie/update/{{ obj.pk }}">{{ 'Изменить серию' }}</a></h3>
+    <h4><a href="/serie/delete/{{ obj.pk }}">{{ 'Удалить данную серию' }}</a></h4>
     <strong>Список книг данной серии:</strong><br>
-    {% for book in book_key%}
-        <li>{{ book }}</li>
+    {% for book in book_list%}
+        <li><a href="/book/{{ book.pk }}">{{ book }}</a></li>
     {% endfor %}
 </body>
 </html>

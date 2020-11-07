@@ -6,10 +6,10 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Список книг</h1>
-    <h2><a href="/book/create">{{ 'Создать новую книгу' }}</a></h2>
-    {% for book in books_key%}
-    <a href="/book/{{ book.pk }}">{{ book.book_name }}</a><br>
+    <h1>{{ list_name }}</h1>
+    <h2><a href={{ link }}>{{ header }}</a></h2>
+    {% for obj in object_list%}
+    <a href="/{{ obj_name }}/{{ obj.pk }}"> {{ obj }}</a><br>
     {% endfor %}
 </body>
 </html>

@@ -6,13 +6,13 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Название издательства: {{publisher_key.publisher}}</h1>
-    <h2>Количество книг данного издательства:{{book_key|length}}</h2>
-    <h3><a href="/publisher/update/{{ publisher_key.pk }}">{{ 'Изменить данные издателя' }}</a></h3>
-    <h4><a href="/publisher/delete/{{ publisher_key.pk }}">{{ 'Удалить данного издателя' }}</a></h4>
+    <h1>Название издательства: {{obj.publisher}}</h1>
+    <h2>Количество книг данного издательства:{{book_list|length}}</h2>
+    <h3><a href="/publisher/update/{{ obj.pk }}">{{ 'Изменить данные издателя' }}</a></h3>
+    <h4><a href="/publisher/delete/{{ obj.pk }}">{{ 'Удалить данного издателя' }}</a></h4>
     <strong>Список книг данного издательства:</strong><br>
-    {% for book in book_key%}
-        <li>{{ book }}</li>
+    {% for book in book_list%}
+        <li><a href="/book/{{ book.pk }}">{{ book }}</a></li>
     {% endfor %}
 </body>
 </html>

@@ -1,6 +1,42 @@
 from django.db import models
 from reference_book.models import Author, Serie, Genre, Publisher
 
+class BookCover(models.Model):
+    book_cover = models.CharField(
+        'Вид обложки',
+        max_length=50
+    )
+
+    def __str__(self):
+        return f'{self.book_cover}'
+
+class BookRestrictions(models.Model):
+    book_restrictions = models.CharField(
+        'Возрастные ограничения',
+        max_length=50
+    )
+
+    def __str__(self):
+        return f'{self.book_restrictions}'
+
+class BookAvailability(models.Model):
+    book_availability = models.CharField(
+        'Доступность книги',
+        max_length=50
+    )
+
+    def __str__(self):
+        return f'{self.book_availability}'
+
+class BookRating(models.Model):
+    book_rating = models.CharField(
+        'Рейтинг книги',
+        max_length=50
+    )
+
+    def __str__(self):
+        return f'{self.book_rating}'
+
 class Book(models.Model):
     book_name = models.CharField(
         'Название книги',
@@ -29,19 +65,11 @@ class Book(models.Model):
         max_length=5
     )
 
-    COVER_CHOICES = [
-        ('hard', 'Твердая обложка'),
-        ('soft', 'Мягкая обложка'),
-        ('sup', 'Суперобложка'),
-        ('halfsoft', 'Полумягкая обложка'),
-        ('cloth', 'Тканевая обложка'),
-        ('unknown', 'Не указано')
-    ]
-    book_cover = models.CharField(
-        'Вид обложки',
-        max_length=50,
-        default='unknown',
-        choices=COVER_CHOICES
+    book_cover = models.ForeignKey(
+        BookCover,
+        verbose_name='Вид обложки',
+        on_delete=models.PROTECT,
+        related_name='bookcover'
     )
 
     book_isbn = models.CharField(
@@ -54,48 +82,30 @@ class Book(models.Model):
         max_length=5
     )
 
-    RESTRICTIONS = [
-        ('no_restriction', '0+'),
-        ('underthree', '3+'),
-        ('undersix', '6+'),
-        ('underten', '10+'),
-        ('undersixteen', '16+'),
-        ('adultonly', '18+')
-    ]
-
-    book_restrictions = models.CharField(
-        'Возрастные ограничения',
-        max_length=50,
-        default='no_restriction',
-        choices=RESTRICTIONS
+    book_restrictions = models.ForeignKey(
+        BookRestrictions,
+        verbose_name='Возрастные ограничения',
+        on_delete=models.PROTECT,
+        related_name='bookrestrictions'
     )
 
     book_quantity = models.IntegerField(
         'Количество книг в наличии',
         default=0
     )
-
-    AVAILABLE = [
-        ('yes', 'Доступен для заказа'),
-        ('no', 'Нет в наличии')
-    ]
     
-    book_availability = models.CharField(
-        'Статус книги',
-        max_length=20,
-        default='no',
-        choices=AVAILABLE
+    book_availability = models.ForeignKey(
+        BookAvailability,
+        verbose_name='Доступность книги',
+        on_delete=models.PROTECT,
+        related_name='bookavailability'
     )
 
-    RATING = []
-    for i in range(11):
-        var = (i, i)
-        RATING.append(var)
-
-    book_rating = models.IntegerField(
-        'Рейтинг книги',
-        default=0,
-        choices=RATING
+    book_rating = models.ForeignKey(
+        BookRating,
+        verbose_name='Рейтинг книги',
+        on_delete=models.PROTECT,
+        related_name='bookrating'
     )
 
     book_adding_date = models.DateField(
@@ -120,26 +130,20 @@ class Book(models.Model):
         Serie,
         verbose_name='Серия книги',
         on_delete=models.PROTECT,
-        related_name='book',
-        null=True,
-        blank=True
+        related_name='book'
     )
     
     book_genre = models.ManyToManyField(
         Genre,
         verbose_name='Жанры',
-        related_name='book',
-        null=True,
-        blank=True
+        related_name='book'
     )
     
     book_publisher = models.ForeignKey(
         Publisher,
         verbose_name='Издательство',
         on_delete=models.PROTECT,
-        related_name='book',
-        null=True,
-        blank=True
+        related_name='book'
     )
 
     def __str__(self):

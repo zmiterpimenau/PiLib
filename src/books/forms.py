@@ -12,4 +12,3 @@ class UpdateBookForm(forms.ModelForm):
     class Meta:
         model = models.Book
         fields = '__all__'
-    book_id = forms.CharField(widget=forms.HiddenInput)
