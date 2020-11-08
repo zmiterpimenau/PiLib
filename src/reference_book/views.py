@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import Author, Serie, Genre, Publisher
 from books.models import *
@@ -13,7 +14,8 @@ class ShowRefBooksView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         l = len(Book.objects.all()) - 10
-        context["top_books"] = Book.objects.order_by('book_adding_date')[l:]
+        context["new_books"] = Book.objects.order_by('book_adding_date')[l:]
+        context["top_books"] = Book.objects.order_by('book_rating')[l:]
         return context
     
 
@@ -27,30 +29,33 @@ class ShowAuthorListView(ListView):
 
         return context
     
-class CreateAuthorView(CreateView):
+class CreateAuthorView(LoginRequiredMixin, CreateView):
     model = Author
     form_class = CreateAuthorForm
     success_url = '/author'
     template_name = 'refs/create_object.html'
+    login_url = '/auth_login'
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["header"] = "Создать автора"
         return context
     
-class UpdateAuthorView(UpdateView):
+class UpdateAuthorView(LoginRequiredMixin, UpdateView):
     model = Author
     form_class = UpdateAuthorForm
     success_url = '/author'
     template_name = 'refs/create_object.html'
+    login_url = '/auth_login'
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["header"] = "Обновить карточку автора"
         return context
 
-class DeleteAuthorView(DeleteView):
+class DeleteAuthorView(LoginRequiredMixin, DeleteView):
     model = Author
     success_url = '/author'
     template_name = 'refs/delete_object.html'
+    login_url = '/auth_login'
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         key = self.kwargs.get(self.pk_url_kwarg)
@@ -77,30 +82,33 @@ class ShowSerieListView(ListView):
         context["header"] = "Список серий"
         return context
 
-class CreateSerieView(CreateView):
+class CreateSerieView(LoginRequiredMixin, CreateView):
     model = Serie
     form_class = CreateSerieForm
     success_url = '/serie'
     template_name = 'refs/create_object.html'
+    login_url = '/auth_login'
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["header"] = "Создать серию"
         return context
     
-class UpdateSerieView(UpdateView):
+class UpdateSerieView(LoginRequiredMixin, UpdateView):
     model = Serie
     form_class = UpdateSerieForm
     success_url = '/serie'
     template_name = 'refs/create_object.html'
+    login_url = '/auth_login'
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["header"] = "Обновить данные серии"
         return context
 
-class DeleteSerieView(DeleteView):
+class DeleteSerieView(LoginRequiredMixin, DeleteView):
     model = Serie
     success_url = '/serie'
     template_name = 'refs/delete_object.html'
+    login_url = '/auth_login'
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["header"] = "Удалить серию"
@@ -127,30 +135,33 @@ class ShowGenreListView(ListView):
         context["header"] = "Список жанров"
         return context
 
-class CreateGenreView(CreateView):
+class CreateGenreView(LoginRequiredMixin, CreateView):
     model = Genre
     form_class = CreateGenreForm
     success_url = '/genre'
     template_name = 'refs/create_object.html'
+    login_url = '/auth_login'
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["header"] = "Добавить жанр"
         return context
     
-class UpdateGenreView(UpdateView):
+class UpdateGenreView(LoginRequiredMixin, UpdateView):
     model = Genre
     form_class = UpdateGenreForm
     success_url = '/genre'
     template_name = 'refs/create_object.html'
+    login_url = '/auth_login'
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["header"] = "Обновить данные жанра"
         return context
 
-class DeleteGenreView(DeleteView):
+class DeleteGenreView(LoginRequiredMixin, DeleteView):
     model = Genre
     success_url = '/genre'
     template_name = 'refs/delete_object.html'
+    login_url = '/auth_login'
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["header"] = "Удалить жанр"
@@ -177,30 +188,33 @@ class ShowPublishereListView(ListView):
         context["task"] = "Создать карточку нового издательства"
         return context
 
-class CreatePublisherView(CreateView):
+class CreatePublisherView(LoginRequiredMixin, CreateView):
     model = Publisher
     form_class = CreatePublisherForm
     success_url = '/publisher'
     template_name = 'refs/create_object.html'
+    login_url = '/auth_login'
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["header"] = "Добавить издателя"
         return context
     
-class UpdatePublisherView(UpdateView):
+class UpdatePublisherView(LoginRequiredMixin, UpdateView):
     model = Publisher
     form_class = UpdatePublisherForm
     success_url = '/publisher'
     template_name = 'refs/create_object.html'
+    login_url = '/auth_login'
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["header"] = "Обновить данные издательства"
         return context
 
-class DeletePublisherView(DeleteView):
+class DeletePublisherView(LoginRequiredMixin, DeleteView):
     model = Publisher
     success_url = '/publisher'
     template_name = 'refs/delete_object.html'
+    login_url = '/auth_login'
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["header"] = "Удалить издательство"

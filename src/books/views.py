@@ -1,35 +1,39 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic import ListView, CreateView, UpdateView, TemplateView, DeleteView, DetailView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import Book
 from .forms import CreateBookForm, UpdateBookForm
 from reference_book.models import Author, Genre, Serie, Publisher
 
-class CreateBookView(CreateView):
+class CreateBookView(LoginRequiredMixin, CreateView):
     model = Book
     form_class = CreateBookForm
     success_url = '/book'
     template_name = 'refs/create_object.html'
+    login_url = '/auth_login'
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["header"] = "Создать книгу"
         return context
     
-class UpdateBookView(UpdateView):
+class UpdateBookView(LoginRequiredMixin, UpdateView):
     model = Book
     form_class = UpdateBookForm
     success_url = '/book'
     template_name = 'refs/create_object.html'
+    login_url = '/auth_login'
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["header"] = "Обновить карточку книги"
         return context
 
-class DeleteBookView(DeleteView):
+class DeleteBookView(LoginRequiredMixin, DeleteView):
     model = Book
     success_url = '/book'
     template_name = 'refs/delete_object.html'
+    login_url = '/auth_login'
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["header"] = "Удалить книгу"

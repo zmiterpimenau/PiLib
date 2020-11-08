@@ -4,15 +4,31 @@
 {% endblock title %}
 {% block body %}
 <h1>Новинки</h1>
-{% for book in top_books %}
+{% for book in new_books %}
   <a href="/book/{{ book.pk }}">{{ book }}</a>
-{% endfor %}
-  <h2>Категории</h2>
+{% endfor %}<br>
+<h2>Категории</h2>
     <a href="/author/">{{ 'Авторы' }}</a> 
     <a href="/serie/">{{ 'Серии' }}</a> 
     <a href="/genre/">{{ 'Жанры' }}</a> 
     <a href="/publisher/">{{ 'Издательства' }}</a> 
-    <a href="/book/">{{ 'Книги' }}</a><br>
+    <a href="/book/">{{ 'Книги' }}</a><br><br>
+<h2>Самые популярные</h2>
+  <table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Название</th>
+            <th scope="col">Рейтинг по версии PiLib</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for book in top_books %}
+        <tr>
+            <th scope="row"><a href="{% url 'book-view' book.pk %}"</a>{{ book }}</th>
+            <td>{{ book.book_rating }}</td>
+        </tr>
+    {% endfor %}<br>
+
 {% endblock body %} 
 
 

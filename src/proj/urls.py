@@ -19,6 +19,7 @@ from django.urls import path
 from hello_world.views import hello_world
 
 from reference_book import views
+from reference_book import auth_view
 from books import views as v
 
 urlpatterns = [
@@ -48,5 +49,6 @@ urlpatterns = [
     path('book/create/', v.CreateBookView.as_view(), name="book-create"),
     path('book/update/<int:pk>/', v.UpdateBookView.as_view(), name='book-update'),
     path('book/delete/<int:pk>/', v.DeleteBookView.as_view(), name='book-delete'),
+    path('auth_login/', auth_view.MyLoginView.as_view(), name= 'login'),
     path('', views.ShowRefBooksView.as_view()),
 ]
