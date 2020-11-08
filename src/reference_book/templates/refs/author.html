@@ -1,18 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Карточка автора: {{ obj }}</h1>
-    <h2>Количество книг: {{ book_list|length }}</h2>
-    <h3><a href="/author/update/{{ obj.pk }}">{{ 'Изменить данные автора' }}</a></h3>
-    <h4><a href="/author/delete/{{ obj.pk }}">{{ 'Удалить данного автора' }}</a></h4>
-    <strong>Список книг данного автора:</strong><br>
-    {% for book in book_list %}
-        <li><a href="/book/{{ book.pk }}">{{ book }}</a></li>
-    {% endfor %}
-</body>
-</html>
+{% extends 'customer_base.html' %}
+{% load static %}
+{% block title %}
+Карточка автора
+{% endblock title %}
+{% block body %}
+  <h1>Карточка автора</h1> 
+  <table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Имя автора</th>
+            <th scope="col">Количество книг</th>
+            <th scope="col">Список книг</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th scope="row">{{ obj.pk }}</th>
+            <td>{{ obj }}</td>
+            <td>{{ book_list|length }}</td>
+            <td>
+            {% for book in book_list %}
+            <a href="/book/{{ book.pk }}">{{ book }}</a><br>
+            {% endfor %}
+            </td>
+            <td>
+            <a href="{% url 'author-update' obj.pk %}" class="btn btn-primary"><i class="far fa-edit"></i></a> 
+            <a href="{% url 'author-delete' obj.pk %}" class="btn btn-dark"><i class="fas fa-trash-alt"></i></a></td>
+            </td>
+        </tr>
+    </tbody>
+    </table>
+{% endblock body %} 
+
+
+

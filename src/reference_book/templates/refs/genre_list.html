@@ -1,33 +1,33 @@
 {% extends 'customer_base.html' %}
-{% load static %}
 {% block title %}
-Карточка жанра
+{{ header }}
 {% endblock title %}
+
 {% block body %}
-  <h1>Карточка жанра</h1> 
+  <h1>{{ header }}
+  <a class="btn btn-outline-primary btn-lg" href="{% url 'genre-create' %}" role="button">{{ task }}</a></button> 
+  </h1> 
+
   <table class="table table-striped">
     <thead>
         <tr>
+            <th scope="col">#</th>
             <th scope="col">Название жанра</th>
-            <th scope="col">Количество книг данного жанра</th>
-            <th scope="col">Список книг данного жанра</th>
             <th scope="col"></th>
         </tr>
     </thead>
     <tbody>
+    {% for obj in object_list%}
         <tr>
-            <td>{{ obj }}</td>
-            <td>{{ book_list|length }}</td>
+            <th scope="row">{{ obj.pk }}</th>
+            <td>{{ obj.genres }}</td>
             <td>
-            {% for book in book_list %}
-            <a href="/book/{{ book.pk }}">{{ book }}</a><br>
-            {% endfor %}
-            </td>
-            <td>
+            <a href="{% url 'genre-view' obj.pk %}" class="btn btn-info"><i class="fab fa-readme"></i></a> 
             <a href="{% url 'genre-update' obj.pk %}" class="btn btn-primary"><i class="far fa-edit"></i></a> 
             <a href="{% url 'genre-delete' obj.pk %}" class="btn btn-dark"><i class="fas fa-trash-alt"></i></a></td>
-            </td>
+        </td>
         </tr>
+    {% endfor %}
     </tbody>
     </table>
-{% endblock body %} 
+{% endblock body %}

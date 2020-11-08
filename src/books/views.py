@@ -33,6 +33,8 @@ class DeleteBookView(DeleteView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["header"] = "Удалить книгу"
+        key = self.kwargs.get(self.pk_url_kwarg)
+        context["obj"] = Book.objects.get(pk=key)
         return context       
 
 class ShowBookByPKView(DetailView):

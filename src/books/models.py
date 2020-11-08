@@ -108,7 +108,7 @@ class Book(models.Model):
         related_name='bookrating'
     )
 
-    book_adding_date = models.DateField(
+    book_adding_date = models.DateTimeField(
         verbose_name='Дата внесения в каталог',
         auto_now=False,
         auto_now_add=True

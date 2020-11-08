@@ -2,29 +2,30 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 
 from .models import Author, Serie, Genre, Publisher
-from books import models
+from books.models import *
 
 from django.views.generic import ListView, CreateView, UpdateView, TemplateView, DeleteView, DetailView
 
 from .forms import CreateGenreForm, UpdateGenreForm, CreateAuthorForm, UpdateAuthorForm, CreateSerieForm, UpdateSerieForm, CreatePublisherForm, UpdatePublisherForm
 
 class ShowRefBooksView(TemplateView):
-    template_name = "refs/refs.html"
+    template_name = "refs/main.html"
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        l = len(Book.objects.all()) - 10
+        context["top_books"] = Book.objects.order_by('book_adding_date')[l:]
+        return context
+    
 
 class ShowAuthorListView(ListView):
-    template_name = 'refs/refbook_list.html'
+    template_name = 'refs/author_list.html'
     model = Author
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["list_name"] = "Список авторов"
-        context["link"] = "/author/create"
-        context["obj_name"] = "author"
-        context["header"] = "Создать нового автора"
+        context["task"] = "Создать автора"
+        context["header"] = "Список авторов"
+
         return context
-"""    
-    def get_queryset(self):
-        return super().get_queryset()
-"""
     
 class CreateAuthorView(CreateView):
     model = Author
@@ -52,7 +53,9 @@ class DeleteAuthorView(DeleteView):
     template_name = 'refs/delete_object.html'
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        key = self.kwargs.get(self.pk_url_kwarg)
         context["header"] = "Удалить автора"
+        context["obj"] = Author.objects.get(pk=key)
         return context       
 
 class ShowAuthorByPKView(DetailView):
@@ -66,14 +69,12 @@ class ShowAuthorByPKView(DetailView):
         return context
     
 class ShowSerieListView(ListView):
-    template_name = 'refs/refbook_list.html'
+    template_name = 'refs/serie_list.html'
     model = Serie
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["list_name"] = "Список серий"
-        context["link"] = "/serie/create"
-        context["obj_name"] = "serie"
-        context["header"] = "Создать новую серию"
+        context["task"] = "Создать новую серию"
+        context["header"] = "Список серий"
         return context
 
 class CreateSerieView(CreateView):
@@ -103,6 +104,8 @@ class DeleteSerieView(DeleteView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["header"] = "Удалить серию"
+        key = self.kwargs.get(self.pk_url_kwarg)
+        context["obj"] = Serie.objects.get(pk=key)
         return context       
 
 class ShowSerieByPKView(DetailView):
@@ -116,14 +119,12 @@ class ShowSerieByPKView(DetailView):
         return context
     
 class ShowGenreListView(ListView):
-    template_name = 'refs/refbook_list.html'
+    template_name = 'refs/genre_list.html'
     model = Genre
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["list_name"] = "Список жанров"
-        context["link"] = "/genre/create"
-        context["obj_name"] = "genre"
-        context["header"] = "Создать карточку нового жанра"
+        context["task"] = "Создать карточку нового жанра"
+        context["header"] = "Список жанров"
         return context
 
 class CreateGenreView(CreateView):
@@ -153,6 +154,8 @@ class DeleteGenreView(DeleteView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["header"] = "Удалить жанр"
+        key = self.kwargs.get(self.pk_url_kwarg)
+        context["obj"] = Genre.objects.get(pk=key)
         return context       
 
 class ShowGenreByPKView(DetailView):
@@ -166,14 +169,12 @@ class ShowGenreByPKView(DetailView):
         return context
 
 class ShowPublishereListView(ListView):
-    template_name = 'refs/refbook_list.html'
+    template_name = 'refs/publisher_list.html'
     model = Publisher
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["list_name"] = "Список издательств"
-        context["link"] = "/publisher/create"
-        context["obj_name"] = "publisher"
-        context["header"] = "Создать карточку нового издательства"
+        context["header"] = "Список издательств"
+        context["task"] = "Создать карточку нового издательства"
         return context
 
 class CreatePublisherView(CreateView):
@@ -203,6 +204,8 @@ class DeletePublisherView(DeleteView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["header"] = "Удалить издательство"
+        key = self.kwargs.get(self.pk_url_kwarg)
+        context["obj"] = Publisher.objects.get(pk=key)
         return context       
 
 class ShowPublisherByPKView(DetailView):

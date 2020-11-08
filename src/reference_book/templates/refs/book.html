@@ -1,33 +1,90 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Название книги: {{book_obj.book_name}}</h1>
-    <h2><a href="/book/update/{{ book_obj.pk }}">{{ 'Изменить карточку книги' }}</a></h2>
-    <h3><a href="/book/delete/{{ book_obj.pk }}">{{ 'Удалить книгу' }}</a></h3>
-    Автор - {% for author in author_obj%}
-        <a href="/author/{{ author.pk }}">{{author}}</a>
-        {% endfor %}<br>
-    Жанр - {% for genre in genre_obj%}
-        <a href="/genre/{{ genre.pk }}">{{genre}}</a>
-        {% endfor %}<br>
-    Серия - <a href="/serie/{{ book_obj.book_serie.pk }}">{{book_obj.book_serie}}</a><br>
-    Издатель - <a href="/publisher/{{ book_obj.book_publisher.pk }}">"{{book_obj.book_publisher}}"</a><br>
-    Цена книги: {{book_obj.book_price}} BYN<br>
-    Год выпуска книги: {{book_obj.book_year}}<br>
-    Количество страниц: {{book_obj.book_pages}}<br>
-    Вид обложки: {{book_obj.book_cover}}<br>
-    ISBN номер: {{book_obj.book_isbn}}<br>
-    Вес книги, гр.: {{book_obj.book_weight}}<br>
-    Возрастные ограничения: {{book_obj.book_restrictions}}<br>
-    Количество книг в наличии: {{book_obj.book_quantity}}<br>
-    Доступность: {{book_obj.book_availability}}<br>
-    Рейтинг книги: {{book_obj.book_rating}}<br>
-    Дата внесения в каталог: {{book_obj.book_adding_date}}<br>
-    Время последнего изменения карточки: {{book_obj.book_updating_date}}<br>
-</body>
-</html>
+{% extends 'customer_base.html' %}
+{% load static %}
+{% block title %}
+Карточка книги
+{% endblock title %}
+{% block body %}
+<h1>Карточка книги
+<a href="{% url 'book-update' book_obj.pk %}" class="btn btn-primary"><i class="far fa-edit"></i></a> 
+<a href="{% url 'book-delete' book_obj.pk %}" class="btn btn-dark"><i class="fas fa-trash-alt"></i></a>
+</h1>
+  <table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col"></th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        </tr>
+        <tr>
+            <th>Название книги</th>
+            <td>{{book_obj.book_name}}</td>
+        </tr>
+        <tr>
+            <th>Автор</th>
+            <td>{% for author in author_obj%}<a href="/author/{{ author.pk }}">{{author}}{% endfor %}<br></a></td>
+        </tr>
+        <tr>
+            <th>Жанры</th>
+            <td>{% for genre in genre_obj%}<a href="/genre/{{ genre.pk }}">{{genre}}</a>{% endfor %}<br></td>
+        </tr>
+        <tr>
+            <th>Серия</th>
+            <td><a href="/serie/{{ book_obj.book_serie.pk }}">{{book_obj.book_serie}}</a></td>
+        </tr>
+        <tr>
+            <th>Издатель</th>
+            <td><a href="/publisher/{{ book_obj.book_publisher.pk }}">"{{book_obj.book_publisher}}"</a></td>
+        </tr>
+        <tr>
+            <th>Цена книги</th>
+            <td>{{book_obj.book_price}} BYN</td>
+        </tr>
+        <tr>
+            <th>Год выпуска книги</th>
+            <td>{{book_obj.book_year}}</td>
+        </tr>
+        <tr>
+            <th>Количество страниц</th>
+            <td>{{book_obj.book_pages}}</td>
+        </tr>
+        <tr>
+            <th>Вид обложки</th>
+            <td>{{book_obj.book_cover}}</td>
+        </tr>
+        <tr>
+            <th>ISBN номер</th>
+            <td>{{book_obj.book_isbn}}</td>
+        </tr>
+        <tr>
+            <th>Вес книги, гр.</th>
+            <td>{{book_obj.book_weight}}</td>
+        </tr>
+        <tr>
+            <th>Возрастные ограничения</th>
+            <td>{{book_obj.book_restrictions}}</td>
+        </tr>
+        <tr>
+            <th>Количество книг в наличии</th>
+            <td>{{book_obj.book_quantity}}</td>
+        </tr>
+        <tr>
+            <th>Доступность</th>
+            <td>{{book_obj.book_availability}}</td>
+        </tr>
+        <tr>
+            <th>Рейтинг книги</th>
+            <td>{{book_obj.book_rating}}</td>
+        </tr>
+        <tr>
+            <th>Дата внесения в каталог</th>
+            <td>{{book_obj.book_adding_date}}</td>
+        </tr>
+        <tr>
+            <th>Время последнего изменения карточки</th>
+            <td>{{book_obj.book_updating_date}}</td>
+        </tr>
+    </tbody>
+    </table>
+{% endblock body %}
