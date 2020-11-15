@@ -14,7 +14,7 @@ class ShowRefBooksView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         l = len(Book.objects.all()) - 10
-        context["new_books"] = Book.objects.order_by('book_adding_date')[l:]
+        context["new_books"] = Book.objects.order_by('book_adding_date')[(l+4):]
         context["top_books"] = Book.objects.order_by('book_rating')[l:]
         return context
     
