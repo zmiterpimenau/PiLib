@@ -8,6 +8,7 @@
 <a href="{% url 'book-update' book_obj.pk %}" class="btn btn-primary"><i class="far fa-edit"></i></a> 
 <a href="{% url 'book-delete' book_obj.pk %}" class="btn btn-dark"><i class="fas fa-trash-alt"></i></a>
 </h1>
+<img src="{{ book_obj.book_picture.url }}" style="width: 14rem;"> 
   <table class="table table-striped">
     <thead>
         <tr>
@@ -20,6 +21,10 @@
         <tr>
             <th>Название книги</th>
             <td>{{book_obj.book_name}}</td>
+        </tr>
+        <tr>
+            <th>Описание книги</th>
+            <td>{{book_obj.book_description}}</td>
         </tr>
         <tr>
             <th>Автор</th>

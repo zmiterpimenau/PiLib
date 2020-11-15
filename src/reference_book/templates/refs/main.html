@@ -14,20 +14,21 @@
     <a href="/publisher/">{{ 'Издательства' }}</a> 
     <a href="/book/">{{ 'Книги' }}</a><br><br>
 <h2>Самые популярные</h2>
-  <table class="table table-striped">
-    <thead>
-        <tr>
-            <th scope="col">Название</th>
-            <th scope="col">Рейтинг по версии PiLib</th>
-        </tr>
-    </thead>
-    <tbody>
-    {% for book in top_books %}
-        <tr>
-            <th scope="row"><a href="{% url 'book-view' book.pk %}"</a>{{ book }}</th>
-            <td>{{ book.book_rating }}</td>
-        </tr>
-    {% endfor %}<br>
+
+<div class="row">
+{% for book in top_books%}
+  <div class="col-sm-3">
+    <div class="card" style="width: 14rem;">
+      <img src="{{ book.book_picture.url }}" class="card-img-top" alt="No picture found">
+      <div class="card-body">
+        <h5 class="card-title">{{ book.book_name}}</h5>
+        <p class="card-text">{{ book.book_description}}</p>
+        <a href="/book/{{ book.pk }}" class="btn btn-primary">Перейти на страницу книги</a>
+      </div>
+    </div>
+  </div>
+{% endfor %}
+</div>
 
 {% endblock body %} 
 

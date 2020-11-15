@@ -1,6 +1,10 @@
 from django.db import models
 from reference_book.models import Author, Serie, Genre, Publisher
 
+def upload(inst, filename):
+    return f'book_picture/{inst.pk}-{filename}'
+
+
 class BookCover(models.Model):
     book_cover = models.CharField(
         'Вид обложки',
@@ -46,6 +50,11 @@ class Book(models.Model):
         'Описание книги',
         blank=True,
         null=True
+    )
+
+    book_picture = models.ImageField(
+        'Изображение обложки',
+        upload_to=upload
     )
 
     book_price = models.DecimalField(
