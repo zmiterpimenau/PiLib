@@ -9,6 +9,7 @@
   <h1>{{ header }} 
   <a class="btn btn-outline-primary btn-lg" href="{% url 'book-create' %}" role="button">Создать книгу</a></button> 
   </h1> 
+  {% include 'navs/paginator.html' %}
   <table class="table table-striped">
     <thead>
         <tr>
@@ -35,4 +36,5 @@
     {% endfor %}
     </tbody>
     </table>
+{% include 'navs/paginator.html' %}
 {% endblock body %}

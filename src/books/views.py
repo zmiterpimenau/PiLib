@@ -55,6 +55,7 @@ class ShowBookByPKView(DetailView):
 
 class ShowBookListView(ListView):
     template_name = 'refs/book_list.html'
+    paginate_by = 10
     model = Book
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

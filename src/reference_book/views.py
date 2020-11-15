@@ -21,12 +21,12 @@ class ShowRefBooksView(TemplateView):
 
 class ShowAuthorListView(ListView):
     template_name = 'refs/author_list.html'
+    paginate_by = 10
     model = Author
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["task"] = "Создать автора"
         context["header"] = "Список авторов"
-
         return context
     
 class CreateAuthorView(LoginRequiredMixin, CreateView):
