@@ -1,0 +1,38 @@
+{% extends 'customer_base.html' %}
+{% load static %}
+
+{% block title %}
+Корзина
+{% endblock title %}
+
+{% block body %}
+    <h1>Cart</h1>
+    Cart ID: {{ cart.pk }}<br>
+    You have just added: {{ book.pk }} {{ book.book_name }}<br>
+<hr>
+<form action="{% url 'orders:cart-update' %}" method="post">
+    {% csrf_token %}
+<table class="table"> 
+        {% for book_in_cart in cart.products.all %}
+        <tr>
+            <td>"{{ book_in_cart.book.book_name }}"</td> 
+            <td><input type="number" class="form-control-sm" name="{{ book_in_cart.pk }}" id="" value="{{ book_in_cart.quantity }}"> шт.
+                <small class="form-text text-muted">
+                    Введите количество
+                </small>
+            </td>
+            <td>Цена - {{ book_in_cart.price }} BYN</td>
+            <td><a href="{% url 'orders:book-in-cart-del' book_in_cart.pk %}"><i class="fas fa-trash-alt"></i></a></td>
+        </tr>
+        {% endfor %} 
+        
+</table>
+        <button name="submit_button" type="submit" class="btn btn-success" value="checkout">Подтвердить заказ</button>
+        <button name="submit_button" type="submit" class="btn btn-primary" value="edit">Редактировать заказ</button>  
+</form>
+<hr>
+Цена итого: {{ cart.total_price }} BYN
+{% endblock body %} 
+
+
+

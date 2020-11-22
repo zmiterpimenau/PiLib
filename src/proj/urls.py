@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.conf import settings
-from django.urls import path
+from django.urls import path, include
 from django.conf.urls.static import static
 
 from hello_world.views import hello_world
@@ -52,5 +52,6 @@ urlpatterns = [
     path('book/update/<int:pk>/', v.UpdateBookView.as_view(), name='book-update'),
     path('book/delete/<int:pk>/', v.DeleteBookView.as_view(), name='book-delete'),
     path('auth_login/', auth_view.MyLoginView.as_view(), name= 'login'),
+    path('cart/', include('orders.urls', namespace='orders')),
     path('', views.ShowRefBooksView.as_view()),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

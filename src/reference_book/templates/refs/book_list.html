@@ -30,7 +30,8 @@
             <td>
             <a href="{% url 'book-view' obj.pk %}" class="btn btn-info"><i class="fab fa-readme"></i></a> 
             <a href="{% url 'book-update' obj.pk %}" class="btn btn-primary"><i class="far fa-edit"></i></a> 
-            <a href="{% url 'book-delete' obj.pk %}" class="btn btn-dark"><i class="fas fa-trash-alt"></i></a></td>
+            <a href="{% url 'book-delete' obj.pk %}" class="btn btn-dark"><i class="fas fa-trash-alt"></i></a>
+            <a href="{% url 'orders:cart' %}?book={{ obj.pk }}" class="btn btn-success"><i class="far fa-shopping-cart"></i></a></td>
         </td>
         </tr>
     {% endfor %}

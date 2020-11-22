@@ -1,0 +1,14 @@
+{% extends 'customer_base.html' %}
+{% load static %}
+
+{% block title %}
+Удалить товар из корзины
+{% endblock title %}
+
+{% block body %}
+    <h1>Вы уверены, что хотите удалить "{{ object.book.book_name }}"?</h1>
+    <form action="" method="post">{% csrf_token %}<button type="submit" class="btn btn-danger">Подтвердить</button></form>
+{% endblock body %} 
+
+
+
