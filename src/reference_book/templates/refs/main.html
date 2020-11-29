@@ -7,7 +7,7 @@
 <div class="row">
 {% for book in new_books %}
   <div class="col-sm-2">
-    <div class="card" style="width: 10rem;">
+    <div class="card" style="width: 11rem;">
       <img src="{{ book.book_picture.url }}" class="card-img-top" alt="No picture found">
       <div class="card-body">
         <h5 class="card-title"><a href="/book/{{ book.pk }}">{{ book.book_name}}</a></h5>

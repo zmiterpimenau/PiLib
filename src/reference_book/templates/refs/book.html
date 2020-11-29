@@ -5,8 +5,10 @@
 {% endblock title %}
 {% block body %}
 <h1>Карточка книги
+{% if user.is_staff %}
 <a href="{% url 'book-update' book_obj.pk %}" class="btn btn-primary"><i class="far fa-edit"></i></a> 
 <a href="{% url 'book-delete' book_obj.pk %}" class="btn btn-dark"><i class="fas fa-trash-alt"></i></a>
+{% endif %}
 </h1>
 <img src="{{ book_obj.book_picture.url }}" style="width: 14rem;"> 
   <table class="table table-striped">
@@ -92,4 +94,5 @@
         </tr>
     </tbody>
     </table>
+<a href="{% url 'orders:cart' %}?book={{ book_obj.pk }}" class="btn btn-success">В корзину</a></td>
 {% endblock body %}

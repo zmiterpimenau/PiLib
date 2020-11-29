@@ -1,0 +1,15 @@
+{% extends 'customer_base.html' %}
+{% load crispy_forms_filters %}
+
+{% block title %}
+Создать пользователя
+{% endblock title %}
+{% block body %}
+<form method="post" action="{% url 'user_create' %}" class="form-signin" >
+    {% csrf_token %}
+    <h4 class="h4 mb-3 font-weight-normal">Создать профиль</h4>
+    <div class="signin-fields">{{ form|crispy }}</div>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Подтвердить</button>
+    <input type="hidden" name="next" value="{{ next }}">
+</form>
+{% endblock body %} 

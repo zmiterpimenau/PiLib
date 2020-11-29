@@ -1,0 +1,106 @@
+{% extends 'customer_base.html' %}
+{% load static %}
+{% load crispy_forms_filters%}
+
+{% block title %}
+Пользователь: {{ user.username }}
+{% endblock title %}
+
+{% block body %}
+<h1>
+{{ user.username }}
+<a href="{% url 'profile:user_update' user.profile.pk %}" class="btn btn-primary"><i class="far fa-edit"></i></a>
+</h1>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col"></th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        </tr>
+        <tr>
+            <td>Логин</td>
+            <td>{{ user.username }}</td>
+        </tr>
+        <tr>
+            <td>Имя</td>
+            <td>{{ user.first_name }}</td>
+        </tr>
+        <tr>
+            <td>Фамилия</td>
+            <td>{{ user.last_name }}</td>
+        </tr>
+        <tr>
+            <td>Email</td>
+            <td>{{ user.profile.user.email }}</td>
+        </tr>
+        <tr>
+            <td>Номер телефона</td>
+            <td>{{ user.profile.phone_number }}</td>
+        </tr>
+        <tr>
+            <td>Страна</td>
+            <td>
+                {% if user.profile.country %}
+                    {{ user.profile.country }}
+                {% else %}
+                    <a href="{% url 'profile:user_update' user.profile.pk %}">Редактировать</a
+                {% endif %} 
+            </td>
+        </tr>
+        <tr>
+            <td>Город</td>
+            <td>
+                {% if user.profile.city %}
+                    {{ user.profile.city }}
+                {% else %}
+                    <a href="{% url 'profile:user_update' user.profile.pk %}">Редактировать</a
+                {% endif %} 
+            </td>
+        </tr>
+        <tr>
+            <td>Второй адрес</td>
+            <td>
+                {% if user.profile.second_address  %}
+                    {{ user.profile.second_address  }}
+                {% else %}
+                    <a href="{% url 'profile:user_update' user.profile.pk %}">Редактировать</a
+                {% endif %} 
+            </td>
+        </tr>
+        <tr>
+            <td>Третий адрес</td>
+            <td>
+                {% if user.profile.third_address  %}
+                    {{ user.profile.third_address }}
+                {% else %}
+                    <a href="{% url 'profile:user_update' user.profile.pk %}">Редактировать</a
+                {% endif %} 
+            </td>
+        </tr>
+         <tr>
+            <td>Индекс</td>
+            <td>
+                {% if user.profile.zip_code  %}
+                    {{ user.profile.zip_code }}
+                {% else %}
+                    <a href="{% url 'profile:user_update' user.profile.pk %}">Редактировать</a
+                {% endif %} 
+            </td>
+        </tr>
+         <tr>
+            <td>Дополнительная информация</td>
+            <td>
+                {% if user.profile.additional_information  %}
+                    {{ user.profile.additional_information }}
+                {% else %}
+                    <a href="{% url 'profile:user_update' user.profile.pk %}">Редактировать</a
+                {% endif %}
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+{% endblock body %}

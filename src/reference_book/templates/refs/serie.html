@@ -24,8 +24,10 @@
             {% endfor %}
             </td>
             <td>
-            <a href="{% url 'serie-update' obj.pk %}" class="btn btn-primary"><i class="far fa-edit"></i></a> 
-            <a href="{% url 'serie-delete' obj.pk %}" class="btn btn-dark"><i class="fas fa-trash-alt"></i></a></td>
+            {% if user.is_staff %}
+                <a href="{% url 'serie-update' obj.pk %}" class="btn btn-primary"><i class="far fa-edit"></i></a> 
+                <a href="{% url 'serie-delete' obj.pk %}" class="btn btn-dark"><i class="fas fa-trash-alt"></i></a></td>
+            {% endif %}
             </td>
         </tr>
     </tbody>

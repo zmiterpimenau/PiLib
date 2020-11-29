@@ -26,8 +26,10 @@
             {% endfor %}
             </td>
             <td>
-            <a href="{% url 'author-update' obj.pk %}" class="btn btn-primary"><i class="far fa-edit"></i></a> 
-            <a href="{% url 'author-delete' obj.pk %}" class="btn btn-dark"><i class="fas fa-trash-alt"></i></a></td>
+            {% if user.is_staff %}
+                <a href="{% url 'author-update' obj.pk %}" class="btn btn-primary"><i class="far fa-edit"></i></a> 
+                <a href="{% url 'author-delete' obj.pk %}" class="btn btn-dark"><i class="fas fa-trash-alt"></i></a></td>
+            {% endif %}
             </td>
         </tr>
     </tbody>

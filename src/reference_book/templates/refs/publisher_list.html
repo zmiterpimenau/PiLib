@@ -5,7 +5,9 @@
 
 {% block body %}
   <h1>{{ header }}
-  <a class="btn btn-outline-primary btn-lg" href="{% url 'publisher-create' %}" role="button">{{ task }}</a></button> 
+  {% if user.is_staff %}
+      <a class="btn btn-outline-primary btn-lg" href="{% url 'publisher-create' %}" role="button">{{ task }}</a></button>
+  {% endif %} 
   </h1> 
 
   <table class="table table-striped">
@@ -20,11 +22,14 @@
     {% for obj in object_list%}
         <tr>
             <th scope="row">{{ obj.pk }}</th>
-            <td>{{ obj.publisher }}</td>
+            <td>
+            <a href="{% url 'publisher-view' obj.pk %}">{{ obj.publisher }}</a></td>
             <td>
             <a href="{% url 'publisher-view' obj.pk %}" class="btn btn-info"><i class="fab fa-readme"></i></a> 
-            <a href="{% url 'publisher-update' obj.pk %}" class="btn btn-primary"><i class="far fa-edit"></i></a> 
-            <a href="{% url 'publisher-delete' obj.pk %}" class="btn btn-dark"><i class="fas fa-trash-alt"></i></a></td>
+            {% if user.is_staff %}
+                <a href="{% url 'publisher-update' obj.pk %}" class="btn btn-primary"><i class="far fa-edit"></i></a> 
+                <a href="{% url 'publisher-delete' obj.pk %}" class="btn btn-dark"><i class="fas fa-trash-alt"></i></a></td>
+            {% endif %}
         </td>
         </tr>
     {% endfor %}

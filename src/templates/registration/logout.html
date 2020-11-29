@@ -1,0 +1,12 @@
+  
+{% extends 'customer_base.html' %}
+
+{% block title %}
+<title>Выход из аккаунта</title>
+{% endblock title %}
+
+{% block body %}
+<h3>Не авторизован</h3>
+<h6>Благодарим вас за время, проведенное на этом сайте.</h6>
+<a href="{% url 'login' %}">Войти снова</a> 
+{% endblock body %}

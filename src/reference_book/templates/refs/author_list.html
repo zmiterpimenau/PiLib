@@ -4,11 +4,15 @@
 {% endblock title %}
 
 {% block body %}
-{% include 'navs/paginator.html' %}
+
 
   <h1>{{ header }}
+  {% if user.is_staff %}
   <a class="btn btn-outline-primary btn-lg" href="{% url 'author-create' %}" role="button">{{ task }}</a></button> 
+  {% endif %}
   </h1> 
+  
+  {% include 'navs/paginator.html' %}
 
   <table class="table table-striped">
     <thead>
@@ -25,8 +29,10 @@
             <td>{{ obj.author }}</td>
             <td>
             <a href="{% url 'author-view' obj.pk %}" class="btn btn-info"><i class="fab fa-readme"></i></a> 
-            <a href="{% url 'author-update' obj.pk %}" class="btn btn-primary"><i class="far fa-edit"></i></a> 
-            <a href="{% url 'author-delete' obj.pk %}" class="btn btn-dark"><i class="fas fa-trash-alt"></i></a></td>
+            {% if user.is_staff %}
+                <a href="{% url 'author-update' obj.pk %}" class="btn btn-primary"><i class="far fa-edit"></i></a> 
+                <a href="{% url 'author-delete' obj.pk %}" class="btn btn-dark"><i class="fas fa-trash-alt"></i></a></td>
+            {% endif %}
         </td>
         </tr>
     {% endfor %}
