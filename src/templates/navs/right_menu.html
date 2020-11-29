@@ -3,7 +3,7 @@
       <a href={% url 'profile:user_profile' %} class="btn btn-dark"><i class="fas fa-user"></i></a><br>
       <a href={% url 'logout' %} class="btn btn-light"><i class="fas fa-sign-out-alt"></i></a>
   {% else %}
-      <a href={% url 'login' %} class="btn btn-light"><i class="fas fa-plus-circle"></i></i></a>
+      <a href={% url 'user_create' %} class="btn btn-light"><i class="fas fa-plus-circle"></i></i></a>
       <a href={% url 'login' %} class="btn btn-light"><i class="fas fa-door-open"></i></a>
       
   {% endif %}

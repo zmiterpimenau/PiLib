@@ -56,7 +56,6 @@ class UserProfile(models.Model):
 
     zip_code = models.IntegerField(
         'Индекс', 
-        max_length=50, 
         blank=True,
         null=True
     )

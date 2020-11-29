@@ -15,9 +15,10 @@ class CartView(TemplateView):
         context = super().get_context_data(**kwargs) 
         cart_id = self.request.session.get('cart_id')
         user = self.request.user
-        # get a cart
+
         if not isinstance(user, models.User):
             user = None
+            
         if cart_id:
             cart = models.Cart.objects.filter(pk=cart_id).first()
             if not cart:
@@ -25,6 +26,8 @@ class CartView(TemplateView):
         else:
             cart = create_cart(user, self.request.session)
         context["cart"] = cart
+
+       
         # add a book to the cart
         # check input
         book_id = self.request.GET.get('book')
@@ -48,7 +51,51 @@ class CartView(TemplateView):
             pass # some redirect
         
         context["book"] = book
+       
         return context
+
+"""
+class AddProducrToCartView(TemplateView):
+    template_name = 'orders/cart.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        cart_id = self.request.session.get('cart_id')
+        user = self.request.user
+        if not isinstance(user, models.User):
+            user = None
+        
+        if cart_id:
+            cart = models.Cart.objects.filter(pk=cart_id).first()
+            if not cart:
+                cart = create_cart(user, self.request.session)
+        else:
+            cart = create_cart(user, self.request.session)
+        
+        book_id = self.request.GET.get('book')
+        book = book_models.Book.objects.filter(pk=book_id).first()
+
+        if book:
+            book_in_cart, created = models.ProductInCart.objects.get_or_create(
+                book=book,
+                cart=cart,
+                defaults={
+                    'quantity': 1,
+                    'price': book.book_price
+                }
+            )
+
+            if not created:
+                book_in_cart.quantity = book_in_cart.quantity + 1
+                book_in_cart.price = book_in_cart.construct_price()
+                book_in_cart.save()
+
+        context["cart"] = cart
+        context["book"] = book
+
+        return context
+"""
+    
 
 class DeleteBookInCart(DeleteView):
     model = models.ProductInCart
@@ -81,4 +128,5 @@ class CartUpdateView(RedirectView):
 
     
         return reverse_lazy('orders:cart')
+
 
