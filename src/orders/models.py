@@ -1,23 +1,23 @@
 from django.db import models
-from django.contrib.auth import get_user_model
-
-User = get_user_model()
+from django.contrib.auth.models import User
+from user_profile.models import UserProfile
+from books.models import Book
 
 class Cart(models.Model):
     customer = models.ForeignKey(
         User,
         related_name='carts',
-        on_delete=models.PROTECT,
+        on_delete=models.CASCADE,
         blank=True,
         null=True
     )
     created_date = models.DateTimeField(
-        "Created date", 
+        "Дата внесения в каталог", 
         auto_now=False, 
         auto_now_add=True
     )
     updated_date = models.DateTimeField(
-        "Updated date",
+        "Дата последнего изменения",
         auto_now=True,
         auto_now_add=False
     )
@@ -28,6 +28,9 @@ class Cart(models.Model):
             price += book_in_cart.price
         return price
 
+    def __str__(self):
+        return f"Корзина #{self.pk}"
+
 
 class ProductInCart(models.Model):
     cart = models.ForeignKey(
@@ -36,9 +39,9 @@ class ProductInCart(models.Model):
         related_name="products"
     )
     book = models.ForeignKey(
-        'books.Book',
+        Book,
         on_delete=models.PROTECT,
-        related_name='books_in_carts'
+        related_name='books_in_cart'
     )
     quantity = models.IntegerField(
         "Количество",
@@ -50,9 +53,16 @@ class ProductInCart(models.Model):
         max_digits=7
     )
 
-    def __str__(self):
-        return f"{self.book.book_name} in cart for {self.cart.customer.username}"
-    
+    @property
     def construct_price(self):
-        return self.quantity * self.book.book_price
+        price = self.quantity * self.book.book_price
+        if price == 0:
+            return 0
+        return price
+
+    def __str__(self):
+        return f'Книга "{self.book.book_name}" в корзине #{self.cart.pk}, количество - {self.quantity}'
+    class Meta:
+        unique_together = (('cart', 'book'),)
+    
 

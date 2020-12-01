@@ -57,5 +57,6 @@ urlpatterns = [
     path('usercreate/', auth_view.CreateUserView.as_view(), name='user_create'),
     path('cart/', include('orders.urls', namespace='orders')),
     path('profile/', include('user_profile.urls', namespace='profile')),
+    path('order/', include('conf_order.urls', namespace='conf_order')),
     path('', views.ShowRefBooksView.as_view()),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

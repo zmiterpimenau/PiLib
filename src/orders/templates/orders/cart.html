@@ -27,7 +27,7 @@
         {% endfor %} 
         
 </table>
-        <button name="submit_button" type="submit" class="btn btn-success" value="checkout">Подтвердить заказ</button>
+        <a href="{% url 'conf_order:create_order'%}" type="submit" class="btn btn-success" value="checkout">Подтвердить заказ</a>
         <button name="submit_button" type="submit" class="btn btn-primary" value="edit">Редактировать заказ</button>  
 </form>
 <hr>

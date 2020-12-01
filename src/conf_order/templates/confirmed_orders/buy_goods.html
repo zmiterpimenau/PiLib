@@ -1,0 +1,44 @@
+{% extends 'customer_base.html' %}
+{% load crispy_forms_filters %}
+{% block title %}
+    <title>Cart</title>
+{% endblock title %}
+
+{% block body %}
+    {% if not user %}
+        <h4>Guest</h4>
+    {% else %}
+        <h4>{{ user.username|title }}</h4>
+    {% endif %}
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Title</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Price</th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for book_in_cart in order.cart.book.all %}
+
+            {{ book_in_cart.books }}
+            <tr>
+                <td>{{ book_in_cart.book.book_name }}</td>
+                <td>{{ book_in_cart.quantity }}</td>
+                <td>{{ book_in_cart.price }}</td>
+                <td>
+                    <a href="{% url 'orders:book-in-cart-del' book_in_cart.pk %}" class="btn btn-danger"></a></td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    <h6>Total price: {{ order.cart.total_price }}</h6>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <a href="{% url 'profile:user_profile' %}" class="btn btn-secondary" type="submit">Подтвердить заказ</a>
+    </form>
+
+{% endblock body %}

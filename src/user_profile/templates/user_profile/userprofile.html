@@ -99,6 +99,17 @@
                     <a href="{% url 'profile:user_update' user.profile.pk %}">Редактировать</a
                 {% endif %}
             </td>
+            <td>
+             {% for foo in profile.user.templates.all %}
+                {% if foo.order %}
+                    {% for book in foo.books.all %}
+                        <th scope="row">{{ foo.order.pk }}</th>
+                        <td>{{ book.book.name }}</td>
+                        <td>{{ book.price }}</td>
+                    {% endfor %}
+                {% endif %}
+            {% endfor %}
+            </td>
         </tr>
         </tbody>
     </table>

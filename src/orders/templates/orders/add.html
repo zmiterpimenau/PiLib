@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load static %}
+  {% block title %}<title>Добавление в корзину</title>{% endblock title %}
+{% load crispy_forms_tags %}
+
+        {% block books_active %}
+          <a class="nav-link dropdown-toggle active" href="{% url 'refs/book_list' %}" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Книги</a>
+
+          
+          {% endblock books_active %}
+
+    {% block main %}
+    {% include "message.html" %}
+     <div class=container>
+     <h3>Добавление книги {{object.books}}</h3>
+     <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+            {{form|crispy}}
+
+        <input class="btn btn-primary" type="submit" value="ОК">
+    <a class="btn btn-success" href="{% url 'orders:cart' %}" > Назад </a>
+     </form>
+    </div>
+
+</body>
+    {% endblock main %}
+</html>

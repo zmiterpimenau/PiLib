@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+  <head> {% block head %}
+    {% load static %}
+    {% load crispy_forms_tags %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v4.0.1">
+    {% block title %}<title>Base</title>{% endblock title %}
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/carousel/">
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <!-- Favicons -->
+    <link rel="manifest" href="https://getbootstrap.com/docs/4.5/assets/img/favicons/manifest.json">
+    <meta name="theme-color" content="#563d7c">
+
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+    <!-- Custom styles for this template -->
+     <link href="{% static 'css/carousel.css' %}" rel="stylesheet"> 
+  <!-- <link href="/static/css/carousel.css" rel="stylesheet"> --> 
+</head>{% endblock head %}
+<body> 
+  <header> {% block top_menu %}
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+      <a class="navbar-brand">Book`s shop</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <ul class="navbar-nav mr-auto">
+        <a class="nav-link" href="{% url 'home_page' %}">Домошня страница <span class="sr-only">(current)</span></a>
+        {% block books %}
+        <li class="nav-item dropdown">
+        {% block books_active %}
+          <a class="nav-link dropdown-toggle" href="{% url 'CRUDL_books:list' %}" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Книги</a>
+          {% endblock books_active %}
+          <div class="dropdown-menu" aria-labelledby="dropdown01">
+            <a class="dropdown-item" href="{% url 'CRUDL_books:list' %}">Список книг</a>
+            <a class="dropdown-item" href="{% url 'CRUDL_books:genre_list' %}">Список жанров</a>
+            <a class="dropdown-item" href="{% url 'CRUDL_books:author_list' %}">Список авторов</a>
+            <a class="dropdown-item" href="{% url 'CRUDL_books:publisher_list' %}">Список издательств</a>
+            <a class="dropdown-item" href="{% url 'CRUDL_books:series_list' %}">Список серий</a>
+          </div>
+        </li>
+        {% endblock books %}
+        {% block profiles %}
+        <li class="nav-item dropdown">
+        {% block profiles_active%}
+          <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Профиль</a>
+          {% endblock profiles_active %}
+          <div class="dropdown-menu" aria-labelledby="dropdown01">
+            {% if user.is_authenticated %}
+            <a class="dropdown-item" href="{% url 'CRUDL_profiles:detail' user.prof_user.pk %}">{{user}}</a>
+            <a class="dropdown-item" href="{% url 'change-password' %}">Изменить пароль</a>
+            <a class="dropdown-item" href="{% url 'logout' %}">Выход</a>
+
+            {%endif%}
+            {% if user.is_anonymous %}      
+            <a class="dropdown-item" href="{% url 'login' %}">Войти </a>
+            <a class="dropdown-item" href="{% url 'CRUDL_profiles:create' %}">Регистрация</a>
+            {% endif%}
+          </div>
+        </li>
+            {% if user.is_staff %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 's-admin:index' %}">S-Admin page</a>
+              </li>
+              {% if user.is_superuser %}
+                <li class="nav-item">
+                  <a class="nav-link" href="/admin/">Admin page</a>
+                </li>
+              {%endif%}
+            {% endif %} 
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Привет, <b>{{user}}</b> Последний вход: <b>{{user.last_login}}</b></a>
+            </li>
+             {% endif%}
+          {% endblock profiles %}
+      </ul>
+      <a class="btn btn-outline-success" href="{% url 'cart:my' %}">
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-cart4" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l.5 2H5V5H3.14zM6 5v2h2V5H6zm3 0v2h2V5H9zm3 0v2h1.36l.5-2H12zm1.11 3H12v2h.61l.5-2zM11 8H9v2h2V8zM8 8H6v2h2V8zM5 8H3.89l.5 2H5V8zm0 5a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z"/>
+        </svg>
+      Cart</a>
+      {% comment %} <form class="form-inline mt-1 mt-md-0">
+        
+        <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      </form> {% endcomment %}
+    </div>
+  </nav>
+</header> {% endblock top_menu %}
+
+<main role="main">{% block main %}
+  <div class=container>
+    <h1>It`s main page</h1>
+  </div>
+</main>{% endblock main %}
+<footer class="text-muted">
+      <div class="container">
+        <p class="float-right">
+          <a href="#">Вверх</a>
+        </p>
+        <p>Album example is © Bootstrap</p>
+        <p>It-acedemy labs. <a href="../../">Посетить домашнюю страницу</a> или открыть список  <a href="{% url 'CRUDL_books:list' %}">всех книг</a>.</p>
+      </div>
+    </footer>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+      <script>window.jQuery || document.write('<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"><\/script>')</script><script src="https://getbootstrap.com/docs/4.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-1CmrxMRARb6aLqgBO7yyAxTOQE2AKb9GfXnEo760AUcUmFx3ibVJJAzGytlQcNXd" crossorigin="anonymous"></script></body>
+</body>
+</html>
