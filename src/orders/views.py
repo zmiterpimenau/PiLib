@@ -130,3 +130,5 @@ class CartUpdateView(RedirectView):
         return reverse_lazy('orders:cart')
 
 
+
+

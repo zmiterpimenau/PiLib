@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import CreateView, UpdateView
+from django.views.generic import CreateView, UpdateView, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.contrib.messages.views import SuccessMessageMixin
@@ -63,5 +63,4 @@ class CreateOrderView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 
     def get_success_message(self, cleaned_data):
         return f"{self.object}  - оформлен. Ожидайте звонка нашего специалиста."
-
 

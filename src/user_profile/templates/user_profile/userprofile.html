@@ -114,4 +114,36 @@
         </tbody>
     </table>
 
+        <h4>Мои заказы</h4>
+    {% for foo in profile.user.carts.all %}
+        {% if foo.order %}
+            <table class="table table-hover">
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Номер заказа</th>
+                    <th scope="col">Статус</th>
+                    <th scope="col">Книги</th>
+                    <th scope="col">Цена</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th scope="row">{{ foo.order.id }}</th>
+                    <td>{{ foo.order.order_status }}</td>
+                    <td>{% for book in foo.products.all %}
+                            {{ book.book.book_name }}<br>
+                        {% endfor %}</td>
+                    <td>{% for book in foo.products.all %}
+                            {{ book.price }}<br>
+                        {% endfor %}
+                        <b>Итого: {{ foo.total_price }}</b><br>
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+        {% endif %}<br>
+    {% endfor %}
+
+
 {% endblock body %}
